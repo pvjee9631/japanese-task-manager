@@ -1,0 +1,595 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header p {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ビュー選択 */
+.view-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.view-selector button {
+  padding: 10px 20px;
+  border: 2px solid #e9ecef;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.view-selector button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.view-selector button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* タスク追加フォーム */
+.task-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  border-left: 4px solid #667eea;
+}
+
+.task-form h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* 時間入力グループ */
+.time-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.time-input-group label {
+  font-size: 12px;
+  color: #666;
+  font-weight: bold;
+}
+
+.duration-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 10px;
+  border: 2px solid #e9ecef;
+}
+
+.duration-display label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.duration-display span {
+  font-weight: bold;
+  color: #495057;
+  font-size: 14px;
+}
+
+.add-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s;
+  width: 100%;
+}
+
+.add-button:hover {
+  transform: translateY(-2px);
+}
+
+/* 検索と統計 */
+.search-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.stats {
+  display: flex;
+  gap: 15px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* 月表示 */
+.month-view {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.calendar-header button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+}
+
+.calendar-header button:hover {
+  background: #5a6fd8;
+}
+
+.calendar-header h3 {
+  color: #333;
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.week-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #495057;
+  color: white;
+}
+
+.week-day-header {
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  border-right: 1px solid #6c757d;
+}
+
+.week-day-header:last-child {
+  border-right: none;
+}
+
+.month-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e9ecef;
+}
+
+.calendar-day {
+  background: white;
+  min-height: 120px;
+  padding: 8px;
+  border: 1px solid #e9ecef;
+  position: relative;
+}
+
+.calendar-day.other-month {
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+.calendar-day.today {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #495057;
+  font-size: 14px;
+}
+
+.calendar-day.other-month .day-number {
+  color: #adb5bd;
+}
+
+.day-tasks {
+  min-height: 80px;
+}
+
+.calendar-task {
+  font-size: 11px;
+  padding: 3px 5px;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  border-left: 3px solid;
+}
+
+.calendar-task.高 {
+  background: #ffebee;
+  color: #c62828;
+  border-left-color: #c62828;
+}
+
+.calendar-task.中 {
+  background: #fff3e0;
+  color: #ef6c00;
+  border-left-color: #ef6c00;
+}
+
+.calendar-task.低 {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border-left-color: #2e7d32;
+}
+
+.calendar-task.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.more-tasks {
+  font-size: 10px;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* 週表示 */
+.week-view {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.week-days-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e9ecef;
+}
+
+.week-day {
+  background: white;
+  min-height: 500px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+}
+
+.week-day.today {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+}
+
+.day-header {
+  background: #f8f9fa;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.day-name {
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.day-date {
+  color: #6c757d;
+  font-size: 12px;
+}
+
+.day-tasks {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.week-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #6c757d;
+  transition: all 0.3s;
+}
+
+.week-task:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.task-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-text {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.task-text.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-time-small {
+  font-size: 11px;
+  color: #666;
+}
+
+.priority-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.priority-dot.高 { background: #c62828; }
+.priority-dot.中 { background: #ef6c00; }
+.priority-dot.低 { background: #2e7d32; }
+
+.delete-small {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  transition: color 0.3s;
+}
+
+.delete-small:hover {
+  color: #c82333;
+}
+
+.no-tasks-day {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 40px 20px;
+  font-size: 14px;
+}
+
+/* 日表示 */
+.day-view {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.day-timeline {
+  border: 1px solid #e9ecef;
+}
+
+.time-slot {
+  display: flex;
+  border-bottom: 1px solid #e9ecef;
+  min-height: 100px;
+}
+
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+.time-label {
+  width: 80px;
+  padding: 15px;
+  background: #f8f9fa;
+  font-weight: bold;
+  color: #495057;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.time-content {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-task {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s;
+  border-left: 4px solid #6c757d;
+}
+
+.timeline-task:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.task-time {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-title {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.priority-badge.高 { background: #ffebee; color: #c62828; }
+.priority-badge.中 { background: #fff3e0; color: #ef6c00; }
+.priority-badge.低 { background: #e8f5e8; color: #2e7d32; }
+
+.duration-badge {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.progress-badge {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.no-task-hour {
+  height: 60px;
+  border: 1px dashed #e9ecef;
+  border-radius: 4px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 12px;
+}
+
+/* リスト表示 */
+.list-view {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.tasks-container {
+  margin-top: 20px;
+}
+
+.category-section {
+  margin-bottom: 30px;
+}
+
+.category-title {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #333;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 5px;
+}
